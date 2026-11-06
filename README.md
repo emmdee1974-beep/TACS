@@ -1,20 +1,14 @@
-# TACS Website Beta — Local Preview
+# TACS Homepage Interaction Prototype
 
-## Run
-Unzip the package and double-click `index.html` in Firefox, Chrome or Edge. No install or internet connection is required.
+This is a static front-end prototype for the TACS homepage concept: an aerial landscape with clickable hotspots, floating information panels, bottom navigation, search panel, and compact menu.
 
-## Included
-- Responsive public landing page and navigation
-- Clickable illustrative regional-map concept and community profiles
-- Interactive art, materials and cultural-life panels
-- Searchable sample archive, media filter and record details
-- Projects and history sections
-- Simulated board sign-in and dashboard/review queue
-
-## Demo sign-in
-Enter any email and any password.
+## Preview locally
+Open `index.html` in a modern browser. No build tools or server are required.
 
 ## Important
-This is a front-end simulation only. It has no real authentication, database, upload facility, archive files, permissions enforcement or approval workflow. The map is illustrative, not geographically accurate, not a territorial map and not for navigation. No data is transmitted or published from the local preview.
-
-Before launch, replace the map with authoritative basemap data and community-approved layers; confirm each community's preferred names and language; establish rights, consent, cultural review and board approval metadata; and build a secure backend with role-based access, audit logs, encrypted backups and tested recovery. Keep originals private by default. Never expose Windows file shares or RDP directly to the internet.
+- This is a UI prototype only. It has no database, authentication, upload capability, protected board portal, or actual archive search.
+- The background image is AI-generated inspiration, not a real aerial photograph or accurate map.
+- The coastline, labels, colored overlays, and territorial shapes must NOT be presented as authoritative.
+- Replace the background with a licensed/approved real aerial image and connect a real map built from verified GIS layers before public launch.
+- The decorative TACS monogram is a placeholder, not official logo artwork.
+- All cultural and language content needs review and approval by the appropriate community.

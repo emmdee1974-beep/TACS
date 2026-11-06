@@ -1,33 +1,25 @@
-const communities=[
-["lax","Lax Kw’alaams","Port Simpson","The lead community perspective for this TACS initiative. The profile will grow through Lax Kw’alaams direction, Sm’algyax language work and community-approved sources."],
-["met","Metlakatla","BC and Alaska communities","Two distinct present-day communities are represented in this starter profile. Confirm names, histories, relationships and preferred descriptions with each community."],
-["gitxaala","Gitxaala Nation","Kitkatla","A community profile placeholder. Place names, language, history and map layers should be supplied or approved by Gitxaala."],
-["gitaat","Gitga’at First Nation","Hartley Bay","A community profile placeholder. Confirm preferred wording, language representation and approved cultural information with Gitga’at."],
-["kitsum","Kitsumkalum First Nation","Terrace","A community profile placeholder. Historical and present-day locations should be sourced and approved before mapping."],
-["kitselas","Kitselas First Nation","Kitselas Canyon / Gitaus","A community profile placeholder. The final profile should reflect Kitselas' own language and community direction."],
-["kitasoo","Kitasoo/Xai’xais First Nation","Klemtu","A community profile placeholder. Do not assume Sm’algyax applies; language and cultural content must be community-reviewed."]
-];
-const records=[
-["View of Lax Kw’alaams from the water","Photograph","ca. 1913","Lax Kw’alaams","Review pending","review","Demo catalogue entry inspired by archival source descriptions. Add repository, accession number, photographer, rights and community context before publication."],
-["Sm’algyax word recording","Audio","Demo record","Lax Kw’alaams","Restricted","restricted","Placeholder for a language recording. Consent, speaker attribution, pronunciation, orthography and access conditions must be documented."],
-["Carving tools and materials","Document","Demo record","To be confirmed","Public demo","","A simulated educational record connecting materials, makers, use and cultural context."],
-["Elder interview — transcript","Document","Demo record","Private collection","Restricted","restricted","A private-by-default example. Record consent, permitted uses, restrictions, review date and authorized access."],
-["Harbour and shoreline footage","Video","Demo record","Lax Kw’alaams","Review pending","review","Placeholder video. Original media remains private until rights, consent, cultural review and board approval are complete."],
-["Community gathering photograph","Photograph","Demo record","To be confirmed","Restricted","restricted","Demonstration only. Identifiable people and culturally sensitive gatherings require careful permissions and context."]
-];
-const projects=[["Archive development","Building a searchable catalogue for photographs, documents, sound and video, with private originals and controlled public copies.","IN DEVELOPMENT"],["Language and learning","A Sm’algyax-first learning area with community-approved spellings, audio and learning resources.","PLANNING"],["Community map","A layered regional map with approved place names, community profiles and carefully governed location data.","PLANNING"],["Elders’ stories","A consent-led process for recording, describing and preserving interviews and knowledge.","IN DEVELOPMENT"]];
-const $=s=>document.querySelector(s);
-function selectCommunity(id){let c=communities.find(x=>x[0]===id);if(!c)return;document.querySelectorAll(".community-btn").forEach(b=>b.classList.toggle("active",b.dataset.id===id));$("#profile").innerHTML=`<b>${c[1]}</b><p>${c[2]}</p><p>${c[3]}</p><small>Starter profile · awaiting community review</small>`}
-$("#communityButtons").innerHTML=communities.map(c=>`<button class="community-btn" data-id="${c[0]}">${c[1]}</button>`).join("");document.querySelectorAll(".community-btn").forEach(b=>b.onclick=()=>selectCommunity(b.dataset.id));selectCommunity("lax");
-document.querySelectorAll(".pin").forEach(p=>p.onclick=()=>{selectCommunity(p.dataset.id);$("#profile").scrollIntoView({behavior:"smooth",block:"nearest"})});
-function render(){let q=$("#search").value.toLowerCase(),t=$("#filter").value;let rows=records.filter(r=>(t==="all"||r[1]===t)&&r.join(" ").toLowerCase().includes(q));$("#records").innerHTML=rows.length?rows.map(r=>`<article class="record" data-title="${records.indexOf(r)}"><small>${r[1].toUpperCase()} · ${r[2]}</small><h3>${r[0]}</h3><p>${r[3]}</p><span class="access ${r[5]}">${r[4]}</span></article>`).join(""):"<p>No matching sample records.</p>";document.querySelectorAll(".record").forEach(el=>el.onclick=()=>showRecord(records[+el.dataset.title]));}
-function showRecord(r){$("#modalType").textContent="CATALOGUE · "+r[1].toUpperCase();$("#modalTitle").textContent=r[0];$("#modalDesc").textContent=r[6];$("#modalMeta").innerHTML=`<b>Date:</b> ${r[2]}<br><b>Place:</b> ${r[3]}<br><b>Access:</b> ${r[4]}<br><b>Rights:</b> Not assessed in demo<br><b>Record status:</b> Sample only` ;$("#modal").classList.remove("hidden")}
-$("#search").oninput=render;$("#filter").onchange=render;render();
-$("#projectsGrid").innerHTML=projects.map(p=>`<article><small>${p[2]}</small><h3>${p[0]}</h3><p>${p[1]}</p></article>`).join("");
-const topics={objects:"An object record can include views, maker (when known and approved), material, technique, function, place, date range, language terms, related stories and access status.",process:"A process story can be broken into reviewed steps, with approved images or video, material notes, tool names, Sm’algyax terms and credits. Restricted knowledge stays out of public view.",life:"Connect objects to the settings in which they are used, taught, cared for or remembered. Community contributors decide what can be shared and how it is described."};
-document.querySelectorAll("[data-topic]").forEach(b=>b.onclick=()=>$("#topicDetail").textContent=topics[b.dataset.topic]);
-$("#menu").onclick=()=>$("#nav").classList.toggle("open");$("#nav").querySelectorAll("a").forEach(a=>a.onclick=()=>$("#nav").classList.remove("open"));
-$("#login").onclick=()=>{if(!$("#email").value||!$("#password").value){$("#loginMsg").textContent="Enter any demo email and password.";return}$("#board").classList.add("hidden");$("#portal").classList.remove("hidden");$("#portal").scrollIntoView({behavior:"smooth"})};
-$("#logout").onclick=()=>{$("#portal").classList.add("hidden");$("#board").classList.remove("hidden");$("#board").scrollIntoView({behavior:"smooth"})};
-$("#close").onclick=()=>$("#modal").classList.add("hidden");$("#modal").onclick=e=>{if(e.target.id==="modal")$("#modal").classList.add("hidden")};
-document.querySelectorAll(".queue button").forEach(b=>b.onclick=()=>alert("Demo only: the production portal will open record metadata, consent, rights and approval history."));
+const content={
+ community:{kicker:'HOMELAND · COMMUNITY',title:'Lax Kw’alaams',text:'Explore the community, its history, people, and connections to the surrounding lands and waters.',links:['History','Community','Sm’algyax']},
+ lands:{kicker:'HOMELAND · LAND',title:'Our Lands',text:'Explore land-based knowledge, places, stories, and approved cultural information. Sensitive locations stay protected.',links:['Land stories','Places','Learning']},
+ waters:{kicker:'HOMELAND · WATER',title:'Our Waters',text:'Discover the waterways, coastal connections, and community knowledge shared with permission.',links:['Waterways','Coastal life','Stories']},
+ culture:{kicker:'CULTURE · KNOWLEDGE',title:'Art & Culture',text:'Explore Tsimshian art, materials, tools, artists, and cultural knowledge through community-approved stories.',links:['Art forms','Materials & tools','Artists']},
+ archive:{kicker:'COLLECTIONS · ARCHIVE',title:'Digital Archive',text:'Browse photographs, recordings, documents, and catalogued stories. Public access will be limited to approved items.',links:['Photographs','Audio & video','Documents']},
+ communities:{kicker:'PEOPLE · COMMUNITIES',title:'Communities',text:'Explore community profiles and learn about each community through its own voice, names, language, and approved content.',links:['Community directory','Map','Language']},
+ projects:{kicker:'TACS · PROJECTS',title:'Projects',text:'Follow current cultural, educational, archival, and community projects supported by TACS.',links:['Current projects','Get involved','Updates']},
+ history:{kicker:'MEMORY · HISTORY',title:'History',text:'Explore historical photographs, timelines, oral histories, and records with context and attribution.',links:['Timeline','Historical photos','Oral histories']},
+ about:{kicker:'TACS · SOCIETY',title:'About TACS',text:'Learn about the Tsimshian Arts and Culture Society, its purpose, people, and work.',links:['Our society','Contact','Board']},
+ board:{kicker:'TACS · MEMBERS',title:'Board Portal',text:'The secure board portal will be connected after authentication and private archive services are implemented.',links:['Board information','Sign-in setup','Governance']}
+};
+const panel=document.getElementById('infoPanel'), drawer=document.getElementById('menuDrawer'), search=document.getElementById('searchPanel'), toast=document.getElementById('toast');
+function showPanel(key){const item=content[key]||content.community;document.getElementById('panelKicker').textContent=item.kicker;document.getElementById('panelTitle').textContent=item.title;document.getElementById('panelText').textContent=item.text;const links=document.getElementById('panelLinks');links.innerHTML='';item.links.forEach(label=>{const b=document.createElement('button');b.textContent=label+' ↗';b.addEventListener('click',()=>notify(label+' page will be built in a later stage.'));links.appendChild(b)});panel.classList.remove('hidden');drawer.classList.remove('open');drawer.setAttribute('aria-hidden','true');}
+function notify(message){toast.textContent=message;toast.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>toast.classList.remove('show'),2600)}
+document.querySelectorAll('[data-panel]').forEach(el=>el.addEventListener('click',()=>showPanel(el.dataset.panel)));
+document.getElementById('closePanel').addEventListener('click',()=>panel.classList.add('hidden'));
+document.getElementById('hintBtn').addEventListener('click',()=>notify('Try clicking one of the glowing places on the landscape.'));
+document.getElementById('menuBtn').addEventListener('click',()=>{drawer.classList.toggle('open');document.getElementById('menuBtn').setAttribute('aria-expanded',drawer.classList.contains('open'));drawer.setAttribute('aria-hidden',!drawer.classList.contains('open'));});
+document.getElementById('closeMenu').addEventListener('click',()=>drawer.classList.remove('open'));
+document.getElementById('searchBtn').addEventListener('click',()=>search.classList.toggle('open'));
+document.getElementById('searchClose').addEventListener('click',()=>search.classList.remove('open'));
+document.getElementById('searchInput').addEventListener('keydown',e=>{if(e.key==='Enter')notify('Search will connect to the archive catalogue later.');});
+document.getElementById('languageBtn').addEventListener('click',()=>notify('Language selector concept — community-approved language content will be added later.'));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){drawer.classList.remove('open');search.classList.remove('open');panel.classList.add('hidden')}});
